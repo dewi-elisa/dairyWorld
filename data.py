@@ -37,6 +37,9 @@ def clean_product(details):
 
     product, _, country, description = details
 
+    # clean description
+    description = description.get_text(" ", strip=True)
+
     # extract product name and URL
     product = product.find('a')
 
@@ -73,7 +76,6 @@ def clean_product(details):
 
 if __name__ == '__main__':
     # get the website if not already scraped
-    os.chdir('code/')
     file_name = 'data/dairy_products.html'
 
     if not os.path.isfile(file_name):

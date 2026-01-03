@@ -2,3 +2,5 @@ requests
 beautifulsoup4
 pandas
 python-dotenv
+plotly
+country-converter

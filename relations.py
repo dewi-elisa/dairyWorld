@@ -51,12 +51,11 @@ def get_relations(ingredient):
 
 if __name__ == '__main__':
     # get data
-    os.chdir('code/')
     products = pd.read_csv('data/products.csv', converters={
         'countries': ast.literal_eval,
         'countryURLs': ast.literal_eval
     })
-    print(products.head())
+    print('Data loaded from data/products.csv!')
 
     # extract relations
     relations = products.apply(get_relations, axis=1)
@@ -66,5 +65,7 @@ if __name__ == '__main__':
         'description',
         'CountryMentionInProductURL',
         'productMentionInCountryURLs']
-    print(relations.head())
+
     relations.to_csv('data/relations.csv', sep=',', index=False)
+    print('Relations saved to data/relations.csv')
+    print('Done!')
