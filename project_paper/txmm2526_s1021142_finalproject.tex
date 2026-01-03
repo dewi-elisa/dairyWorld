@@ -1,0 +1,324 @@
+%%%% Proceedings format for most of ACM conferences (with the exceptions listed below) and all ICPS volumes.
+\documentclass[sigconf]{acmart-txmm}
+%%%% As of March 2017, [siggraph] is no longer used. Please use sigconf (above) for SIGGRAPH conferences.
+
+%%%% Proceedings format for SIGPLAN conferences 
+% \documentclass[sigplan, anonymous, review]{acmart}
+
+%%%% Proceedings format for SIGCHI conferences
+% \documentclass[sigchi, review]{acmart}
+
+%%%% To use the SIGCHI extended abstract template, please visit
+% https://www.overleaf.com/read/zzzfqvkmrfzn
+
+\usepackage{booktabs} % For formal tables
+\usepackage{url}
+\usepackage{color}
+\usepackage{enumitem}
+\hyphenation{Media-Eval}
+
+
+
+% Copyright
+%\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+% DOI
+\acmDOI{}
+
+% ISBN
+\acmISBN{}
+
+%Conference
+\acmConference[TxMM'25-'26]{Text and Multimedia Mining}{Radboud University}{Nijmegen, Netherlands} 
+\acmYear{}
+\copyrightyear{}
+
+\acmPrice{}
+
+
+\begin{document}
+\title{How do you like your dairy?}
+%\titlenote{Produces the permission block, and
+%  copyright information}
+\subtitle{A review of how the world tastes milk products}
+%\subtitlenote{The full version of the author's guide is available as
+ % \texttt{acmart.pdf} document}
+
+
+%%If you want to use multi-column authors that's fine. 
+%\author{Martha Larson\textsuperscript{1}, Gareth Jones\textsuperscript{2}, Bogdan Ionescu\textsuperscript{3},\\ Mohammad Soleymani\textsuperscript{4}, Guillaume Gravier\textsuperscript{5}}
+%\affiliation{\textsuperscript{1}Radboud University, Netherlands\\ \textsuperscript{2}Dublin City University, Ireland \\ \textsuperscript{3}University Politehnica of Bucharest, Romania \\ \textsuperscript{4}University of Geneva, Switzerland \\ \textsuperscript{5}CNRS IRISA and Inria Rennes, France}
+%\email{m.a.larson@tudelft.nl, gareth.jones@computing.dcu.ie, bionescu@imag.pub.ro}
+%\email{mohammad.soleymani@unige.ch, guig@irisa.fr}
+
+% \author{Dewi Timman}
+%%\authornote{The secretary disavows any knowledge of this author's actions.}
+\affiliation{s1021142\\Radboud University, Nijmegen}
+% \email{webmaster@marysville-ohio.com}
+
+% \renewcommand{\shortauthors}{Dewi Timman}
+\renewcommand{\shorttitle}{How do you like your dairy?}
+
+\begin{abstract}
+% Your readers will read your abstract in order to decide whether or not to read the entire paper.
+% Keep it short, but make it complete.
+% Remember, the abstract is \emph{not} and introduction to your paper. 
+% Also, it must be able to stand alone, i.e., it should not include references.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+\label{sec:intro}
+Dairy consumption various across cultures.
+For example, ethnicity affects the liking of yogurt \cite{LiuJing2021Palo}. 
+Moreover, the same dairy products can be perceived as differing in healthiness across cultures \cite{JohansenSusanneBølling2011Mfca}.
+In addition, country characteristics can influence which dairy products are consumed \cite{LiemD.G.2016ScIo}.
+Therefore, studying the relationship between people and dairy can clarify the broader human relationship with food and deepen the understanding of cultural differences.
+
+\paragraph{Research question.}
+What is the relationship between dairy products and the country of origin?
+\begin{itemize}
+    \item For each dairy product, where do they originate from?
+    \item How is the dairy product consumed?
+    \item Is there a relationship between the dairy product and the country of origin?
+\end{itemize}
+
+\section{Related Work}
+\label{sec:work}
+Dairy perception and consumption are strongly shaped by culture.
+At the same time, the history and geography of dairy farming influence how dairy products are produced and valued, and the country of origin of a product can influence consumers.
+This section goes into more depth on these topics and further discusses food computing and the current research.
+
+\subsection{Dairy and culture}
+A number of studies show that people in different countries perceive and like dairy products in different ways.
+For example, work on yogurt with different degrees of granularity \cite{LiuJing2021Palo} found that Chinese and Danish consumers responded differently to the presence or absence of particles. 
+Moreover, \citeauthor{JohansenSusanneBølling2011Mfca} \cite{JohansenSusanneBølling2011Mfca} studied young Norwegian, Danish, and Californian consumers and showed that all three groups have common motives for consuming calorie-reduced dairy products (e.g. fat content, perceived healthiness and taste), but their relative importance differs across countries.
+In addition, research on Australian and Chinese consumers \cite{LiemD.G.2016ScIo} reports cross-country differences in the liking of pasteurized milk versus long shelf life milk and in how shelf life labeling affects liking.
+Lastly, research with a trained panel on flavor lexicons for cheese \cite{DrakeM.A.2005Codb} showed that the panels from New Zealand, Ireland, and the United States used different words to describe the same cheeses, and tended to group cheeses by country of origin.
+
+Beyond sensory perception, cultural and historical factors also influence how dairy is produced, valued, and consumed.
+For example, in India most milk comes from the buffalo rather than cows because cows have a sacred status in Hinduism.
+Moreover, in the United States, people are increasingly shifting towards plant-based milks \cite{alma9940205190205131}.
+Lastly, dairy farming can be of great importance to mountain communities \cite{alma9942695182705131}, family farming cultures \cite{HuRen2021TFFC}, and animal welfare \cite{SinclairMichelle2022Ipoa}.
+This is further emphasized by \citeauthor{ValenzeDeborahM.2011MALa} \cite{ValenzeDeborahM.2011MALa}, who researched the different religious meanings of milk and the different functions throughout the ages.
+Thus, dairy is not only a food product, but also has cultural, religious, and socio-economic significance.
+
+\subsection{Country-of-origin labeling}
+Country-of-origin (COO) research has shown that the country where a product is made can influence how consumers evaluate it.
+This suggests that links between dairy products and countries can shape perceptions and choices.
+\citeauthor{KnightGaryA.2000Afmo} \cite{KnightGaryA.2000Afmo} propose a model of how COO information is processed cognitively and show that COO effects are complex and cultural context plays an important role in purchase decisions.
+Moreover, research on the Canadian market \cite{NorrisAmanda2019CPfC} found that COO labeling affects the purchase choice and willingness to pay for dairy products.
+Finally, \citeauthor{YangRongbin2018Aiit} \cite{YangRongbin2018Aiit} illustrate how consumer behavior is influenced through COO information after a major food-related scandal.
+
+\subsection{Food computing}
+Food computing and computational gastronomy are emerging research areas that use computational methods to study food-related topics.
+Surveys and overviews in this area \cite{GoelMansi2022CgAd,MinWeiqing2020ASoF} describe how food data (e.g. recipes, images, social media posts) can be analyzed with tools from data science and artificial intelligence to address a wide range of questions about flavor, health, and culinary culture.
+Several studies focus on culinary cultures and food-country relations.
+For example, \citeauthor{LauferPaul2015Mcrf} \cite{LauferPaul2015Mcrf} mine cultural relations between different language communities in Europe by analyzing how food cultures are described on Wikipedia pages across different language editions.
+Moreover, palette varieties around the world are investigated \cite{SajadmaneshSina2017KCEW} and are found to have strong geographical and cultural similarities between countries.
+Furthermore, a large visual question answering dataset with text-image pairs is made identifying dish names and their origins \cite{WinataGentaIndra2024WAMB}.
+Lastly, two topic modelling approaches are applied to recipes \cite{MinWeiqing2018YAWY, KāleMaija2021UoLR} to discover more about the human relationship with food.
+
+\subsection{Current research}
+Previous research has shown that culture influences how dairy products are perceived and consumed, and that the country of origin of a product can affect how consumers evaluate it.
+Moreover, work on food computing has demonstrated that large-scale online data and computational methods can be used to study food-related topics, including culinary cultures and food-country relations.
+However, there is little work that combines these perspectives to study how dairy products and countries are linked in textual descriptions.
+Therefore, this paper uses text mining on Wikipedia articles to investigate how dairy products are associated with their countries of origin.
+
+% After the introduction comes the related work. As a sanity check: Think about which already existing paper is most closely related to yours. Be sure to cite that paper. Include a statement of whether you are applying the approach of this paper, or whether you are innovating beyond this paper. There may be more than one closest paper. 
+
+% Note the difference in indentation. The first line of the first paragraph of a section is not indented. The first line of the second paragraph of a section is indented. 
+
+\newpage
+\section{Approach}
+\label{sec:approach}
+
+\subsection{Data}
+Wikipedia pages of dairy products and countries. 
+All pages are linked in this Wikipedia page: \url{https://en.wikipedia.org/wiki/List_of_dairy_products}.
+
+\subsection{Method}
+The linked Wikipedia page provides a list of dairy product and origins, answering my first subquestion. 
+In the data I can look for words (such as e.g. fermented, cooked, breakfast, bread) in paragraphs where a specific dairy product is mentioned to answer my second sub question.
+Lastly, I will search in the country pages for the dairy product and for the dairy product in the country pages, extracting those paragraphs and providing me with information about the relation between the country and the dairy product, answering my third sub question. 
+
+\subsection{Validation}
+The output will be confirmed through human judgement and compared with previous research. \\
+
+% A well-written approach section will explain both \emph{why} design decisions were made and also \emph{how} they were implemented.
+% Remember: You want to maximize the reproducibility of your paper.
+% This means, that it should be possible for other authors to pick up your paper, and recreate the experiments that you did, and achieve the same results that you also achieved.
+
+% \subsection{About Sub-sections}
+% The titles of your sections and sub-sections should be informative: your reader wants to be able to glance at your paper and understand what can be found where.
+% However, they also should not be too long. It's best if section and sub-section titles are short enough to fit on one line.
+
+% \subsection{More on Sub-sections}
+% A section should either have no sub-sections, or it should have more than one sub-section. A section with only one sub-section is unbalanced, and leaves your reader asking why that one sub-section is necessary.
+
+% \subsubsection{About Sub-sub-sections}
+% Of course the option of including sub-sub-sections is also available. The same rule holds. A sub-section should either have no sub-sub-sections, or it should have more than one sub-sub-section.
+
+% \subsubsection{More on Sub-sub-sections}
+% We advise you to avoid using sub-sub-sections. They take up space, and may be confusing rather than helpful for your reader. Use your own judgement.
+
+\section{Results}% and Analysis}
+% Please report your results in your paper.
+% However, in addition to the quantitative results, it is also very important that you include a discussion of the qualitative insight that you gained.
+
+% You can carry out, for example, a failure analysis: inspect key examples, and try to arrive at a generalization of the source of the shortcomings of your algorithm. It is not necessary to use exactly the same sections here, but we include them as examples.
+
+% \subsection{Formatting Information}
+% This sub-section contains a list of issues that you should think about when writing your paper.
+% \begin{itemize}
+% \item Use short and simple sentences. When it doubt, express a thought in two short sentences, rather than one long one.
+% \item Please spell check and grammar check your paper.
+% \item Please check for widows and orphans. In other words, look for cases in which a section title or a single word is stranded at the bottom of a page or at the top of the next page. Wikipedia gives more information about widows and orphans.
+% \item Please don't use .bibtex directly from the Web without reading it. Instead, go through your .bibtex carefully and make sure that your references are both complete and consistent. 
+% \end{itemize}
+
+% Do not end a section with a list or with a table. Good style demands that a section includes a final sentence which ties the content of the list or table back to what is being discussed in the text.
+
+% \subsection{Other Information}
+% We take this opportunity to remind you that any paragraph you write should consist of more than one sentence. Paragraphs should always contain, like this one does, at least two sentences.
+%\footnote{This is a footnote}  
+
+% ACM tells us, ``You can use whatever symbols, accented characters, or non-English
+% characters you need anywhere in your document; you can find a complete
+% list of what is available in the \textit{\LaTeX\ User's Guide}
+% \cite{Lamport:LaTeX}." In the following section, there is more information from the original ACM version of this sample file.
+
+% \section{Even More Information}
+
+% \subsection{Math Equations}
+% A formula that appears in the running text is called an
+% inline or in-text formula.  It is produced by the
+% \textbf{math} environment, which can be
+% invoked with the usual \texttt{{\char'134}begin\,\ldots{\char'134}end}
+% construction or with the short form \texttt{\$\,\ldots\$}. You
+% can use any of the symbols and structures,
+% from $\alpha$ to $\omega$, available in
+% \LaTeX~\cite{Lamport:LaTeX}; this section will simply show a
+% few examples of in-text equations in context. Notice how
+% this equation:
+% \begin{math}
+%   \lim_{n\rightarrow \infty}x=0
+% \end{math},
+% set here in in-line math style, looks slightly different when
+% set in display style.  (See next section).
+
+% A numbered display equation---one set off by vertical space from the
+% text and centered horizontally---is produced by the \textbf{equation}
+% environment.  Again, in either environment, you can use any of the symbols
+% and structures available in \LaTeX\@; this section will just
+% give a couple of examples of display equations in context.
+% First, consider the equation, shown as an inline equation above:
+% \begin{equation}
+%   \lim_{n\rightarrow \infty}x=0
+% \end{equation}
+% Notice how it is formatted somewhat differently in
+% the \textbf{displaymath}
+% environment.  
+
+% \subsection{Tables}
+% We include Table~\ref{tab:freq} so that you have an example of a table.
+% \begin{table}
+%   \caption{Frequency of Special Characters}
+%   \label{tab:freq}
+%   \begin{tabular}{ccl}
+%     \toprule
+%     Non-English or Math&Frequency&Comments\\
+%     \midrule
+%     \O & 1 in 1,000& Nothing here\\
+%     $\pi$ & 1 in 5& Common in math\\
+%     \$ & 4 in 5 & Used in business\\
+%     $\Psi^2_1$ & 1 in 40,000& Unexplained usage\\
+%   \bottomrule
+% \end{tabular}
+% \end{table}
+% To set a wider table, which takes up the whole width of the page's
+% live area, use the environment \textbf{table*} to enclose the table's
+% contents and the table caption. 
+
+%\begin{table*}
+%  \caption{Some Typical Commands}
+%  \label{tab:commands}
+%  \begin{tabular}{ccl}
+%    \toprule
+%    Command &A Number & Comments\\
+%    \midrule
+%    \texttt{{\char'134}author} & 100& Author \\
+%    \texttt{{\char'134}table}& 300 & For tables\\
+%    \texttt{{\char'134}table*}& 400& For wider tables\\
+%    \bottomrule
+%  \end{tabular}
+%\end{table*}
+%% end the environment with {table*}, NOTE not {table}!
+
+
+% \subsection{Figures}
+
+% No sample paper would be complete without a graphic illustrating a fly. We have commented out the code to insert graphics, but you can see it if you look at the source. 
+
+%\begin{figure}
+%\includegraphics{fly}
+%\caption{A sample black and white graphic.}
+%\end{figure}
+
+%\begin{figure}
+%\includegraphics[height=1in, width=1in]{fly}
+%\caption{A sample black and white graphic
+%that has been resized with the \texttt{includegraphics} command.}
+%\end{figure}
+
+
+% As was the case with tables, you may want a figure that spans two
+% columns.  To do this, and still to ensure proper ``floating''
+% placement of tables, use the environment \textbf{figure*} to enclose
+% the figure and its caption.  And don't forget to end the environment
+% with \textbf{figure*}, not \textbf{figure}!
+
+%\begin{figure*}
+%\includegraphics{flies}
+%\caption{A sample black and white graphic
+%that needs to span two columns of text.}
+%\end{figure*}
+%
+%
+%\begin{figure}
+%\includegraphics[height=1in, width=1in]{rosette}
+%\caption{A sample black and white graphic that has
+%been resized with the \texttt{includegraphics} command.}
+%\end{figure}
+
+\section{Discussion}
+% Remember: Sometimes the most interesting results are actually negative results.
+% Please think carefully about those aspects of your approach that did not work as you expected.
+% Even if you are disappointed by these aspects, the lessons you learned may be valuable for other researchers moving forward.
+% Please describe them here, focusing on what you feel are the most valuable points.
+
+\section{Conclusion}
+
+% \begin{acks}
+% Add any acknowledgements here.
+% \end{acks}
+
+\newpage
+\bibliographystyle{ACM-Reference-Format}
+\def\bibfont{\small} % comment this line for a smaller fontsize
+\bibliography{sigproc,references} 
+
+\section{Work report}
+In order to find literature, I mainly looked in a online university library.
+I used queries such as 'milk', 'dairy', 'country of origin dairy', and 'food computing'.
+
+\end{document}
