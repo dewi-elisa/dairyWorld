@@ -16,7 +16,7 @@
 \usepackage{color}
 \usepackage{enumitem}
 \hyphenation{Media-Eval}
-
+\usepackage{subcaption}
 
 
 % Copyright
@@ -149,12 +149,86 @@ All data is scraped on 5 January 2026 using the BeautifulSoup library in Python\
 
 \subsection{Method}
 The linked Wikipedia page provides a list of dairy product and origins, answering the first subquestion. 
-% In the data I can look for words (such as e.g. fermented, cooked, breakfast, bread) in paragraphs where a specific dairy product is mentioned to answer my second sub question.
-% Lastly, I will search in the country pages for the dairy product and for the dairy product in the country pages, extracting those paragraphs and providing me with information about the relation between the country and the dairy product, answering my third sub question. 
+To answer the second subquestion, descriptors are defined to identify processing and preparation methods and serving contexts of dairy products (see Tables \ref{tab:processing_descriptors} and \ref{tab:serving_descriptors}).
+These descriptors are then used to search on the dairy product pages for paragraphs mentioning one of the keywords, extracting the descriptor, matched keywords and sentence in which the keyword occurred. 
+The same is done for animal sources of dairy products (see Table \ref{tab:animal_descriptors}), trying to answer the third subquestion.
+To fully answer the third subquestion, the results from the descriptors are visualized in a world map. 
 
+\begin{table}
+    \caption{Descriptors and their keywords used to identify processing and preparation methods, serving contexts, and animal sources of dairy products.}
+    \label{tab:descriptors}
+    \begin{subtable}{\linewidth}
+        \centering
+        \caption{Processing and preparation methods}
+        \label{tab:processing_descriptors}  
+        \begin{tabular}{ll}
+            \toprule
+            Descriptor & Keywords \\
+            \midrule
+            Fermented & fermented, fermentation, culture, lactic, \\
+            & probiotic, kefir, yogurt, yoghurt \\
+            Aged & aged, ripened, ripening, mature, affinage \\
+            Fresh & fresh, unripened \\
+            Smoked & smoked, smoky \\
+            Heat treated/cooked & cooked, baked, heated, melted, pasteurized, \\
+            & pasteurised \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+
+    \vspace{0.5em}
+
+    \begin{subtable}{\linewidth}
+        \centering
+        \caption{Serving context}
+        \label{tab:serving_descriptors}
+        \begin{tabular}{ll}
+            \toprule
+            Descriptor & Keywords \\
+            \midrule
+            Breakfast & breakfast, morning, brunch, granola, cereal, oatmeal, \\
+            & porridge \\
+            Bread & bread, toast, sandwich, spread, schmear, bagel, \\
+            & cracker, crostini, canape, canapés \\
+            Dessert & dessert, sweet, cake, pastry, pastries, pudding, custard, \\
+            & ice cream, gelato, whipped, frosting \\
+            Cooking & cooking, sauce, pasta, casserole, gratin \\
+            Snack & snack, appetizer, appetiser, cheese board, charcuterie, \\
+            & platter, tapas \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+
+    \vspace{0.5em}
+
+    \begin{subtable}{\linewidth}
+        \centering
+        \caption{Animal source}
+        \label{tab:animal_descriptors}
+        \begin{tabular}{ll}
+            \toprule
+            Descriptor & Keywords \\
+            \midrule
+            Cow & cow, bovine, jersey, holstein \\
+            Goat & goat, caprine, chèvre, chevre \\
+            Sheep & sheep, ewe, ovine \\
+            Buffalo & buffalo, bufala \\
+            Plant-based & plant-based, plant based, vegan, non-dairy, non dairy, \\
+            & dairy-free, dairy free, oat, soy milk, soya milk, \\
+            & almond milk, coconut milk, cashew milk, rice milk, \\
+            & pea milk \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+\end{table}
 
 \subsection{Validation}
 For the first subquestion, the results are validated by randomly picking 6 dairy products and checking their origins with other sources.
+
+For the second subquestion, 10\% of the extracted paragraphs are randomly selected and manually checked for correctness.
+
+Lastly, for the third subquestion, the country pages are searched for paragraphs containing the dairy product, and the dairy product pages for paragraphs that mention the country of origin.
+Those paragraphs are extracted and used to validate the results.
 
 % The output will be confirmed through human judgement and compared with previous research. \\
 
@@ -180,7 +254,7 @@ For the first subquestion, the results are validated by randomly picking 6 dairy
 \subsection{Product origins}
 Figure \ref{fig:product_origins} shows the origins of the dairy products investigated in this research.
 The darker the orange, the more products originate from a country. 
-A more detailed and interactive version of this figure can be found at Github\footnote{\url{https://dewi-elisa.github.io/dairyWorld/results/world_map.html}}.
+A more detailed and interactive version of this figure can be found at GitHub\footnote{\url{https://dewi-elisa.github.io/dairyWorld/results/world_map.html}}.
 The interactive version shows on hover which specific products originated from that country.
 Appendix \ref{app:country2iso3} describes how this figure was made.
 
@@ -192,7 +266,65 @@ Appendix \ref{app:country2iso3} describes how this figure was made.
 \end{figure}
 
 \subsection{Consummation methods}
+
+\begin{figure}
+    \begin{subfigure}{0.8\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/processing_descriptors_visualization.png}
+        \caption{Processing and preparation descriptors}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}{0.8\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/serving_descriptors_visualization.png}
+        \caption{Serving descriptors}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}{0.8\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/animal_descriptors_visualization.png}
+        \caption{Animal source descriptors}
+    \end{subfigure}
+    \caption{Descriptor occurrences across dairy products. Note that multiple labels can apply to one product, and therefore the percentages do not sum to 100\%.}
+    \label{fig:descriptors}
+\end{figure}
+
 \subsection{Product-country relations}
+See for more, and interactive, maps of Figure \ref{fig:descriptor_maps} the GitHub page\footnote{\url{https://dewi-elisa.github.io/dairyWorld/results/descriptor_map_dropdown.html}}.
+
+\begin{figure}
+    \begin{subfigure}{0.8\linewidth}
+        \centering
+        \href{https://dewi-elisa.github.io/dairyWorld/results/descriptor_map_dropdown.html}{\includegraphics[width=\linewidth]{figs/processing_map.png}}
+        \caption{Processing and preparation descriptors}
+        \label{fig:processing_map}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}{0.8\linewidth}
+        \centering
+        \href{https://dewi-elisa.github.io/dairyWorld/results/descriptor_map_dropdown.html}{\includegraphics[width=\linewidth]{figs/serving_map.png}}
+        \caption{Serving descriptors}
+        \label{fig:serving_map}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}{0.8\linewidth}
+        \centering
+        \href{https://dewi-elisa.github.io/dairyWorld/results/descriptor_map_dropdown.html}{\includegraphics[width=\linewidth]{figs/animal_map.png}}
+        \caption{Animal source descriptors}
+        \label{fig:animal_map}
+    \end{subfigure}
+    \caption{Descriptor prevalence of each descriptor by country.}
+    \label{fig:descriptor_maps}
+\end{figure}
+
 \subsection{Validation}
 
 % Please report your results in your paper.
@@ -335,8 +467,9 @@ Appendix \ref{app:country2iso3} describes how this figure was made.
 
 \subsection{Limitations}
 * not a lot of products (only 60 out of 130)
-* only Wikipedia data, with ambiguous regional terms like “Scandinavia”
+* only Wikipedia data, with ambiguous regional terms like “Scandinavia”, only text data
 * bias toward well-documented countries
+* COO does not mean consumption
 
 \subsection{Future work}
 * more data sources
@@ -362,6 +495,8 @@ I used queries such as 'milk', 'dairy', 'country of origin dairy', and 'food com
 During the programming, I mainly looked at documentation and examples online on websites such as \url{https://www.geeksforgeeks.org} and \url{https://www.w3schools.com}.
 One problem I encountered was the Robot Policy of Wikipedia, \url{https://wikitech.wikimedia.org/wiki/Robot_policy#REST_API_rules}, which prevented me from scraping the Wikipedia pages.
 I solved this by adding a user-agent to my requests.
+For determining the descriptors from Table \ref{tab:descriptors}, I asked ChatGPT-5.2 for keywords.
+The exact prompt was: \textit{Hi, can you think of descriptors and keywords that say more about dairy? I would like a set of descriptors about: * the processing and preparation of dairy (e.g. fermented, smoked, fresh) * serving context (e.g. breakfast, bread) * the animal source (e.g. goat, cow, sheep, plant) Give about 5 descriptors per category.}
 
 \section{World map} \label{app:country2iso3}
 In order to be able to make Figure \ref{fig:product_origins}, ISO3 mapping was needed for each country of origin. 
