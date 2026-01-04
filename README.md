@@ -10,4 +10,6 @@ Make sure to add a `.env` file with a user agent name and contact info. Also ins
 data.py
 relations.py
 product_origin_relation.py
+product_descriptors.py
+product_visualisation.py
 ```
