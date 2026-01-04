@@ -72,6 +72,7 @@
 % Keep it short, but make it complete.
 % Remember, the abstract is \emph{not} and introduction to your paper. 
 % Also, it must be able to stand alone, i.e., it should not include references.
+Code available at: \url{https://github.com/dewi-elisa/dairyWorld}.
 \end{abstract}
 
 \maketitle
@@ -137,22 +138,25 @@ Therefore, this paper uses text mining on Wikipedia articles to investigate how 
 % After the introduction comes the related work. As a sanity check: Think about which already existing paper is most closely related to yours. Be sure to cite that paper. Include a statement of whether you are applying the approach of this paper, or whether you are innovating beyond this paper. There may be more than one closest paper. 
 
 % Note the difference in indentation. The first line of the first paragraph of a section is not indented. The first line of the second paragraph of a section is indented. 
-
-\newpage
 \section{Approach}
 \label{sec:approach}
 
 \subsection{Data}
-Wikipedia pages of dairy products and countries. 
-All pages are linked in this Wikipedia page: \url{https://en.wikipedia.org/wiki/List_of_dairy_products}.
+For this project, Wikipedia pages of dairy products and countries are used. 
+All pages are linked in a Wikipedia page with a list of dairy products\footnote{\url{https://en.wikipedia.org/wiki/List_of_dairy_products}}.
+Only the products with all information present (product name, product URL, origin(s), origin URL(s)) are used, resulting in a total of 60 dairy products out of 130.
+All data is scraped on 5 January 2026 using the BeautifulSoup library in Python\footnote{\url{https://pypi.org/project/beautifulsoup4/}} and further processed using pandas \cite{the_pandas_development_team_2025_17229934}.
 
 \subsection{Method}
-The linked Wikipedia page provides a list of dairy product and origins, answering my first subquestion. 
-In the data I can look for words (such as e.g. fermented, cooked, breakfast, bread) in paragraphs where a specific dairy product is mentioned to answer my second sub question.
-Lastly, I will search in the country pages for the dairy product and for the dairy product in the country pages, extracting those paragraphs and providing me with information about the relation between the country and the dairy product, answering my third sub question. 
+The linked Wikipedia page provides a list of dairy product and origins, answering the first subquestion. 
+% In the data I can look for words (such as e.g. fermented, cooked, breakfast, bread) in paragraphs where a specific dairy product is mentioned to answer my second sub question.
+% Lastly, I will search in the country pages for the dairy product and for the dairy product in the country pages, extracting those paragraphs and providing me with information about the relation between the country and the dairy product, answering my third sub question. 
+
 
 \subsection{Validation}
-The output will be confirmed through human judgement and compared with previous research. \\
+For the first subquestion, the results are validated by randomly picking 6 dairy products and checking their origins with other sources.
+
+% The output will be confirmed through human judgement and compared with previous research. \\
 
 % A well-written approach section will explain both \emph{why} design decisions were made and also \emph{how} they were implemented.
 % Remember: You want to maximize the reproducibility of your paper.
@@ -172,6 +176,25 @@ The output will be confirmed through human judgement and compared with previous 
 % We advise you to avoid using sub-sub-sections. They take up space, and may be confusing rather than helpful for your reader. Use your own judgement.
 
 \section{Results}% and Analysis}
+
+\subsection{Product origins}
+Figure \ref{fig:product_origins} shows the origins of the dairy products investigated in this research.
+The darker the orange, the more products originate from a country. 
+A more detailed and interactive version of this figure can be found at Github\footnote{\url{https://dewi-elisa.github.io/dairyWorld/results/world_map.html}}.
+The interactive version shows on hover which specific products originated from that country.
+Appendix \ref{app:country2iso3} describes how this figure was made.
+
+\begin{figure}
+    \centering
+    \href{https://dewi-elisa.github.io/dairyWorld/results/world_map.html}{\includegraphics[width=0.8\linewidth]{figs/product_origin.png}}
+    \caption{Origins of dairy products}
+    \label{fig:product_origins}
+\end{figure}
+
+\subsection{Consummation methods}
+\subsection{Product-country relations}
+\subsection{Validation}
+
 % Please report your results in your paper.
 % However, in addition to the quantitative results, it is also very important that you include a discussion of the qualitative insight that you gained.
 
@@ -306,6 +329,20 @@ The output will be confirmed through human judgement and compared with previous 
 % Even if you are disappointed by these aspects, the lessons you learned may be valuable for other researchers moving forward.
 % Please describe them here, focusing on what you feel are the most valuable points.
 
+\subsection{Validation}
+* What the validation implies for trustworthiness
+* How it affects interpretation of your main findings (do results hold, where to be cautious).
+
+\subsection{Limitations}
+* not a lot of products (only 60 out of 130)
+* only Wikipedia data, with ambiguous regional terms like “Scandinavia”
+* bias toward well-documented countries
+
+\subsection{Future work}
+* more data sources
+* more products
+* more in-depth analysis -> maybe different, data-driven, descriptors instead of hand-picked?
+
 \section{Conclusion}
 
 % \begin{acks}
@@ -317,8 +354,50 @@ The output will be confirmed through human judgement and compared with previous 
 \def\bibfont{\small} % comment this line for a smaller fontsize
 \bibliography{sigproc,references} 
 
+\appendix
 \section{Work report}
-In order to find literature, I mainly looked in a online university library.
+In order to find literature, I mainly looked in an online university library.
 I used queries such as 'milk', 'dairy', 'country of origin dairy', and 'food computing'.
 
+During the programming, I mainly looked at documentation and examples online on websites such as \url{https://www.geeksforgeeks.org} and \url{https://www.w3schools.com}.
+One problem I encountered was the Robot Policy of Wikipedia, \url{https://wikitech.wikimedia.org/wiki/Robot_policy#REST_API_rules}, which prevented me from scraping the Wikipedia pages.
+I solved this by adding a user-agent to my requests.
+
+\section{World map} \label{app:country2iso3}
+In order to be able to make Figure \ref{fig:product_origins}, ISO3 mapping was needed for each country of origin. 
+The country converter package \cite{Stadler2017} was used for this task.
+However, not all countries were countries: some were cities, regions, former countries, or cultures.
+Therefore, a manual mapping was made for these cases to a country.
+The manual mapping to that country is shown in Table \ref{tab:country2iso3}.
+For the cities and regions, the country where they are located was chosen.
+For the former countries, the country that is most closely related to them was chosen.
+For the Viking culture, the United Kingdom was chosen as the Wikipedia page with dairy product mentions Scotland.
+When a part of a continent was mentioned, a country central in that part was chosen.
+Together with product and country names, this was then put in a choropleth map using Plotly \cite{Kruchten_An_interactive_open-source_2025}.
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{ll}
+    \toprule
+    Country & ISO3 \\
+    \midrule
+    USSR & Russia \\
+    Khan garh & Pakistan \\
+    Scotland & United Kingdom \\
+    Vikings & United Kingdom \\
+    Central Asia & Kazakhstan \\
+    West Sumatra & Indonesia \\
+    Scandinavia & Sweden, Norway, Denmark \\
+    Alps & Switzerland \\
+    Andhra Pradesh & India \\
+    Caucasus & Georgia \\
+    Punjab & India, Pakistan \\
+    Central and Eastern Europe & Poland \\
+    Mannheim & Germany \\
+    Minoru Shirota & Japan \\
+    \bottomrule
+    \end{tabular}
+    \caption{Manual mapping of non-country origins to countries for ISO3 conversion}
+    \label{tab:country2iso3}
+\end{table}
 \end{document}
