@@ -3,6 +3,8 @@ A review of how the world tastes milk products. Project for the course Text and 
 
 For an interactive map of Figure 1 in the paper, click [here](results/world_map.html).
 
+For Figure 3 click [here](results/descriptor_map_dropdown.html).
+
 ## How to run?
 Make sure to add a `.env` file with a user agent name and contact info. Also install the requirements from [`requirements.txt`](requirements.txt). Then run:
 
@@ -11,5 +13,6 @@ data.py
 relations.py
 product_origin_relation.py
 product_descriptors.py
-product_visualisation.py
+descriptor_visualisation.py
+descriptor_map.py
 ```

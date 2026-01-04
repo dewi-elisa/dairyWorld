@@ -69,7 +69,6 @@ if __name__ == '__main__':
 
     print('Creating world map dataframe...')
     map_df = make_world_df(products)
-    print(map_df.head())
 
     print('Creating world map...')
     fig = px.choropleth(
@@ -84,7 +83,10 @@ if __name__ == '__main__':
         labels={"score": "Number of products"},
     )
 
-    fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+    fig.update_layout(
+        title=f"Dairy products by country",
+        margin=dict(l=10, r=10, t=50, b=10),
+    )
     fig.show()
     fig.write_html("results/world_map.html")
     print("Saved to results/world_map.html")
