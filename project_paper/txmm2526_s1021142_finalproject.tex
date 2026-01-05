@@ -77,7 +77,9 @@ One of these factors is culture.
 This paper looks at the relationship between dairy products and their country of origin based on textual descriptions.
 To do this, Wikipedia pages are used to find dairy products and their origin.
 Moreover, descriptors are defined to find possible relationships between product and country.
-The results are validated using human judgement and other sources, and show...
+The results are validated using human judgement and other sources, and show that the Wikipedia-derived dataset is skewed towards Europe and Asia (with India and Turkey contributing the most products).
+Moreover, \emph{fermented} and \emph{dessert} are the most common processing and serving descriptors.
+Lastly, some descriptors are geographically widespread (e.g., \emph{fermented}, \emph{dessert}) whereas others are more localized in the descriptor maps (e.g., \emph{cooked} and \emph{buffalo}). 
 
 Code available at: \url{https://github.com/dewi-elisa/dairyWorld}.
 \end{abstract}
@@ -156,84 +158,15 @@ All data is scraped on 5 January 2026 using the BeautifulSoup library in Python\
 
 \subsection{Method}
 The linked Wikipedia page provides a list of dairy products and origins, answering the first subquestion. 
-To answer the second subquestion, descriptors are defined to identify processing and preparation methods and serving contexts of dairy products (see Tables \ref{tab:processing_descriptors} and \ref{tab:serving_descriptors}).
+To answer the second subquestion, descriptors are defined to identify processing and preparation methods and serving contexts of dairy products (see Tables \ref{tab:processing_descriptors} and \ref{tab:serving_descriptors} in Appendix \ref{app:descriptors}).
 These descriptors are then used to search on the dairy product pages for paragraphs mentioning one of the keywords, extracting the descriptor, matched keywords and sentence in which the keyword occurred. 
 Each dairy product is then matched with one of the 5 descriptors from each category by assigning the one with the most keyword hits.
 If multiple descriptors had the highest amount of hits, both descriptors are assigned.
-The same is done for animal sources of dairy products (see Table \ref{tab:animal_descriptors}), trying to answer the third subquestion.
+The same is done for animal sources of dairy products (see Table \ref{tab:animal_descriptors} in Appendix \ref{app:descriptors}), trying to answer the third subquestion.
 To fully answer the third subquestion, the results from the descriptors are visualized in a world map. 
-
-\begin{table}
-    \caption{Descriptors and their keywords used to identify processing and preparation methods, serving contexts, and animal sources of dairy products.}
-    \label{tab:descriptors}
-    \begin{subtable}{\linewidth}
-        \centering
-        \caption{Processing and preparation methods}
-        \label{tab:processing_descriptors}  
-        \begin{tabular}{ll}
-            \toprule
-            Descriptor & Keywords \\
-            \midrule
-            Fermented & fermented, fermentation, culture, lactic, \\
-            & probiotic, kefir, yogurt, yoghurt \\
-            Aged & aged, ripened, ripening, mature, affinage \\
-            Fresh & fresh, unripened \\
-            Smoked & smoked, smoky \\
-            Heat treated/cooked & cooked, baked, heated, melted, pasteurized, \\
-            & pasteurised \\
-            \bottomrule
-        \end{tabular}
-    \end{subtable}
-
-    \vspace{0.5em}
-
-    \begin{subtable}{\linewidth}
-        \centering
-        \caption{Serving context}
-        \label{tab:serving_descriptors}
-        \begin{tabular}{ll}
-            \toprule
-            Descriptor & Keywords \\
-            \midrule
-            Breakfast & breakfast, morning, brunch, granola, cereal, oatmeal, \\
-            & porridge \\
-            Bread & bread, toast, sandwich, spread, schmear, bagel, \\
-            & cracker, crostini, canape, canapés \\
-            Dessert & dessert, sweet, cake, pastry, pastries, pudding, custard, \\
-            & ice cream, gelato, whipped, frosting \\
-            Cooking & cooking, sauce, pasta, casserole, gratin \\
-            Snack & snack, appetizer, appetiser, cheese board, charcuterie, \\
-            & platter, tapas \\
-            \bottomrule
-        \end{tabular}
-    \end{subtable}
-
-    \vspace{0.5em}
-
-    \begin{subtable}{\linewidth}
-        \centering
-        \caption{Animal source}
-        \label{tab:animal_descriptors}
-        \begin{tabular}{ll}
-            \toprule
-            Descriptor & Keywords \\
-            \midrule
-            Cow & cow, bovine, jersey, holstein \\
-            Goat & goat, caprine, chèvre, chevre \\
-            Sheep & sheep, ewe, ovine \\
-            Buffalo & buffalo, bufala \\
-            Plant-based & plant-based, plant based, vegan, non-dairy, non dairy, \\
-            & dairy-free, dairy free, oat, soy milk, soya milk, \\
-            & almond milk, coconut milk, cashew milk, rice milk, \\
-            & pea milk \\
-            \bottomrule
-        \end{tabular}
-    \end{subtable}
-\end{table}
 
 \subsection{Validation}
 For the first subquestion, the results are validated by randomly picking 6 dairy products (10\%) and checking their origins with other sources.
-
 For the second subquestion, 10\% of the extracted paragraphs are randomly selected and manually checked for correctness.
 
 Lastly, for the third subquestion, the country pages are searched for paragraphs containing the dairy product, and the dairy product pages for paragraphs that mention the country of origin.
@@ -279,8 +212,9 @@ Note that some products have multiple origins, so totals reflect product–count
 \end{figure}
 
 \subsection{Consumption methods}
-Figure \ref{fig:descriptors} summarizes the descriptors assigned to each of the dairy products after matching the descriptor keywords from Table \ref{tab:descriptors} against the text of the corresponding Wikipedia product pages.
-Since multiple descriptors can be assigned to the same product, the percentages within each plot do not necessarily sum to 100\%.
+Figure \ref{fig:descriptors} summarizes the descriptors assigned to each of the dairy products after matching the descriptor keywords from Table \ref{tab:descriptors} in Appendix \ref{app:descriptors} against the text of the corresponding Wikipedia product pages.
+For each product, descriptor hit counts were computed, and the descriptor(s) with the maximum number of hits were assigned.
+Ties therefore result in multiple assigned descriptors and, in turn, the percentages within each plot do not necessarily sum to 100\%.
 
 For processing and preparation (Figure \ref{fig:processing_descriptors}), \emph{fermentation}-related keywords were matched most frequently across products.
 Moreover, for serving context (Figure \ref{fig:serving_descriptors}), most products matched with a \emph{dessert}-related keyword.
@@ -511,7 +445,7 @@ Since the number of products is limited, this can result in unstable country-lev
 
 Furthermore, this research only takes into account textual descriptions from Wikipedia.
 The data contained ambiguous regional terms, such as Scandinavia, Vikings or Central Asia.
-Therefore, some compromises were made by mapping ambiguous regional/cultural references to modern countries (see also Appendix \ref{app:country2iso3}). 
+Therefore, some compromises were made by mapping ambiguous $\qquad\qquad$ regional/cultural references to modern countries (see also Appendix \ref{app:country2iso3}). 
 This may introduce misclassification and affect country-level counts and descriptor prevalence.
 In addition, food is not only described but also experienced through smell, taste, and texture.
 The absence of sensory context may bias the descriptors toward what is typically written rather than what is perceived.
@@ -541,9 +475,12 @@ Future work could also incorporate multilingual or non-Wikipedia sources (e.g., 
 Finally, origin could be compared to consumption by incorporating recipe datasets or market data. 
 
 \section{Conclusion}
-In order to investigate the relationships between dairy products and their country of origin, Wikipedia pages were scraped and used to extract relationships. 
-The results show...
-While there are some apparent limitations, they can easily be overcome by improving on this work.
+In order to investigate the relationships between dairy products and their country of origin, Wikipedia pages were scraped and used to extract textual relationships with respect to processing and preparation, serving context, and animal source. 
+To extract these relationships, descriptors were defined and matched with the Wikipedia product pages. 
+The origin distribution is concentrated in Europe and Asia, with very few products linked to Africa and Oceania.
+Descriptor extraction shows that \emph{fermented} and \emph{dessert} are the most frequently matched descriptors, while animal source is often not explicitly mentioned in the text.
+The country-level descriptor maps suggest that some descriptors are geographically widespread across the dataset (e.g., \emph{fermented}, \emph{dessert}), whereas others show more concentrated patterns (e.g., \emph{cooked} and \emph{buffalo}).
+Because several countries are represented by only one or two products, country-level percentages can be sensitive to small sample sizes and should be interpreted cautiously.
 
 % \begin{acks}
 % Add any acknowledgements here.
@@ -562,9 +499,80 @@ I used queries such as 'milk', 'dairy', 'country of origin dairy', and 'food com
 During the programming, I mainly looked at documentation and examples online on websites such as \url{https://www.geeksforgeeks.org} and \url{https://www.w3schools.com}.
 One problem I encountered was the Robot Policy of Wikipedia, \url{https://wikitech.wikimedia.org/wiki/Robot_policy#REST_API_rules}, which prevented me from scraping the Wikipedia pages.
 I solved this by adding a user-agent to my requests.
-For determining the descriptors from Table \ref{tab:descriptors}, I asked ChatGPT-5.2 for keywords.
+For determining the descriptors from Table \ref{tab:descriptors} in Appendix \ref{app:descriptors}, I asked ChatGPT-5.2 for keywords.
 The exact prompt was: \textit{Hi, can you think of descriptors and keywords that say more about dairy? I would like a set of descriptors about: * the processing and preparation of dairy (e.g., fermented, smoked, fresh) * serving context (e.g., breakfast, bread) * the animal source (e.g., goat, cow, sheep, plant) Give about 5 descriptors per category.}
 
+\newpage
+\section{Descriptors} \label{app:descriptors}
+\begin{table}[h]
+    \caption{Descriptors and their keywords used to identify processing and preparation methods, serving contexts, and animal sources of dairy products.}
+    \label{tab:descriptors}
+    \begin{subtable}{\linewidth}
+        \centering
+        \caption{Processing and preparation methods}
+        \label{tab:processing_descriptors}  
+        \begin{tabular}{ll}
+            \toprule
+            Descriptor & Keywords \\
+            \midrule
+            Fermented & fermented, fermentation, culture, lactic, \\
+            & probiotic, kefir, yogurt, yoghurt \\
+            Aged & aged, ripened, ripening, mature, affinage \\
+            Fresh & fresh, unripened \\
+            Smoked & smoked, smoky \\
+            Heat treated/cooked & cooked, baked, heated, melted, pasteurized, \\
+            & pasteurised \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+
+    \vspace{0.5em}
+
+    \begin{subtable}{\linewidth}
+        \centering
+        \caption{Serving context}
+        \label{tab:serving_descriptors}
+        \begin{tabular}{ll}
+            \toprule
+            Descriptor & Keywords \\
+            \midrule
+            Breakfast & breakfast, morning, brunch, granola, cereal, oatmeal, \\
+            & porridge \\
+            Bread & bread, toast, sandwich, spread, schmear, bagel, \\
+            & cracker, crostini, canape, canapés \\
+            Dessert & dessert, sweet, cake, pastry, pastries, pudding, custard, \\
+            & ice cream, gelato, whipped, frosting \\
+            Cooking & cooking, sauce, pasta, casserole, gratin \\
+            Snack & snack, appetizer, appetiser, cheese board, charcuterie, \\
+            & platter, tapas \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+
+    \vspace{0.5em}
+
+    \begin{subtable}{\linewidth}
+        \centering
+        \caption{Animal source}
+        \label{tab:animal_descriptors}
+        \begin{tabular}{ll}
+            \toprule
+            Descriptor & Keywords \\
+            \midrule
+            Cow & cow, bovine, jersey, holstein \\
+            Goat & goat, caprine, chèvre, chevre \\
+            Sheep & sheep, ewe, ovine \\
+            Buffalo & buffalo, bufala \\
+            Plant-based & plant-based, plant based, vegan, non-dairy, non dairy, \\
+            & dairy-free, dairy free, oat, soy milk, soya milk, \\
+            & almond milk, coconut milk, cashew milk, rice milk, \\
+            & pea milk \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+\end{table}
+
+\newpage
 \section{World map} \label{app:country2iso3}
 In order to be able to make Figure \ref{fig:product_origins}, ISO3 mapping was needed for each country of origin. 
 The country converter package \cite{Stadler2017} was used for this task.
@@ -577,8 +585,10 @@ For the Viking culture, the United Kingdom was chosen as the Wikipedia page with
 When a part of a continent was mentioned, a country central in that part was chosen.
 Together with product and country names, this was then put in a choropleth map using Plotly \cite{Kruchten_An_interactive_open-source_2025}.
 
-\begin{table}[]
+\begin{table}[h]
     \centering
+    \caption{Manual mapping of non-country origins to countries for ISO3 conversion}
+    \label{tab:country2iso3}
     \begin{tabular}{ll}
     \toprule
     Country & ISO3 \\
@@ -599,7 +609,5 @@ Together with product and country names, this was then put in a choropleth map u
     Minoru Shirota & Japan \\
     \bottomrule
     \end{tabular}
-    \caption{Manual mapping of non-country origins to countries for ISO3 conversion}
-    \label{tab:country2iso3}
 \end{table}
 \end{document}
