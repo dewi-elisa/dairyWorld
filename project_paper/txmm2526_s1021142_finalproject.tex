@@ -80,6 +80,7 @@ Moreover, descriptors are defined to find possible relationships between product
 The results are validated using human judgement and other sources, and show that the Wikipedia-derived dataset is skewed towards Europe and Asia (with India and Turkey contributing the most products).
 Moreover, \emph{fermented} and \emph{dessert} are the most common processing and serving descriptors.
 Lastly, some descriptors are geographically widespread (e.g., \emph{fermented}, \emph{dessert}) whereas others are more localized in the descriptor maps (e.g., \emph{cooked} and \emph{buffalo}). 
+Manual checks indicate descriptor extraction is noisier for serving/processing than for animal source.
 
 Code available at: \url{https://github.com/dewi-elisa/dairyWorld}.
 \end{abstract}
@@ -154,7 +155,7 @@ Therefore, this paper uses text mining on Wikipedia articles to investigate how 
 For this project, Wikipedia pages of dairy products and countries are used. 
 All pages are linked in a Wikipedia page with a list of dairy products\footnote{\url{https://en.wikipedia.org/wiki/List_of_dairy_products}}.
 Only the products with all information present (product name, product URL, origin(s), origin URL(s)) are used, resulting in a total of 60 dairy products out of 130.
-All data is scraped on 5 January 2026 using the BeautifulSoup library in Python\footnote{\url{https://pypi.org/project/beautifulsoup4/}} and further processed using pandas \cite{the_pandas_development_team_2025_17229934}.
+All data is scraped between 3 and 5 January 2026 using the BeautifulSoup library in Python\footnote{\url{https://pypi.org/project/beautifulsoup4/}} and further processed using pandas \cite{the_pandas_development_team_2025_17229934}.
 
 \subsection{Method}
 The linked Wikipedia page provides a list of dairy products and origins, answering the first subquestion. 
@@ -167,10 +168,11 @@ To fully answer the third subquestion, the results from the descriptors are visu
 
 \subsection{Validation}
 For the first subquestion, the results are validated by randomly picking 6 dairy products (10\%) and checking their origins with other sources.
-For the second subquestion, 10\% of the extracted paragraphs are randomly selected and manually checked for correctness.
+For the second subquestion, 10\% of the extracted descriptor keyword pairs are randomly selected and manually checked with the matched sentences for correctness.
 
 Lastly, for the third subquestion, the country pages are searched for paragraphs containing the dairy product, and the dairy product pages for paragraphs that mention the country of origin.
-Those paragraphs are extracted and used to validate the results.
+Those paragraphs are extracted and saved in a relations file, used for validation.
+Since the third subquestion is already partly validated by the validation of the second subquestion, this is only done for 5\% of the products.
 
 % The output will be confirmed through human judgement and compared with previous research. \\
 
@@ -294,6 +296,19 @@ Among matched animal descriptors, \emph{cow} is the most common overall (15/60; 
 \end{figure}
 
 \subsection{Validation}
+To validate if the origins from the Wikipedia page are correct, the internet was searched for different sources mentioning their origins. 
+The results of this can be found in Table \ref{tab:val_origins} in Appendix \ref{app:validation}.
+From all validated products, the origin matched with other sources.
+
+The validation of the results from Figure \ref{fig:descriptors} can be found in Tables \ref{tab:val_processing} to \ref{tab:val_animal} in Appendix \ref{app:validation}.
+It can be seen that especially for the processing and preparation descriptors and the serving context descriptors the keywords are often not about the dairy product itself.
+For example, for yakult the milk is said to be a sweetened milk drink, but this does have nothing to do with yakult being a dessert. 
+For the animal source descriptors, this is already less noisy, but there are still mistakes made. 
+For example, ricotta can be made from \emph{goat milk}, but this also triggered the \emph{oat milk} keyword. 
+
+The validation of the results from Figure \ref{fig:descriptor_maps} can be seen in Tables \ref{tab:val_processing2} to \ref{tab:val_animal2}.
+Multiple country product pairs were chosen with one of their assigned descriptors. 
+These combinations were then validated with the relations file, which provided more context about the product and the country. 
 
 % Please report your results in your paper.
 % However, in addition to the quantitative results, it is also very important that you include a discussion of the qualitative insight that you gained.
@@ -429,9 +444,12 @@ Among matched animal descriptors, \emph{cow} is the most common overall (15/60; 
 % Even if you are disappointed by these aspects, the lessons you learned may be valuable for other researchers moving forward.
 % Please describe them here, focusing on what you feel are the most valuable points.
 
-\subsection{Validation}
-* What the validation implies for trustworthiness
-* How it affects interpretation of your main findings (do results hold, where to be cautious).
+% \subsection{Validation}
+% * What the validation implies for trustworthiness
+% * How it affects interpretation of your main findings (do results hold, where to be cautious).
+Manual validation of 10\% of the products shows that origin metadata was consistent with external sources.
+However, descriptor extraction quality varies by category: keyword matches for processing and preparation were frequently not about the product itself (5/12 correct), while serving context (7/11 correct) and animal source (6/8 correct) were more reliable.
+This suggests that the descriptor distributions and descriptor maps partly reflect Wikipedia phrasing conventions and general food terminology, and conclusions about cultural consumption should therefore be drawn cautiously.
 
 \subsection{Limitations}
 % * not a lot of products (only 60 out of 130)
@@ -481,6 +499,8 @@ The origin distribution is concentrated in Europe and Asia, with very few produc
 Descriptor extraction shows that \emph{fermented} and \emph{dessert} are the most frequently matched descriptors, while animal source is often not explicitly mentioned in the text.
 The country-level descriptor maps suggest that some descriptors are geographically widespread across the dataset (e.g., \emph{fermented}, \emph{dessert}), whereas others show more concentrated patterns (e.g., \emph{cooked} and \emph{buffalo}).
 Because several countries are represented by only one or two products, country-level percentages can be sensitive to small sample sizes and should be interpreted cautiously.
+Validation suggests origin metadata is consistent for a sampled subset, but descriptor assignments can be noisy, especially for serving and processing descriptors.
+Thus, country-level descriptor patterns should be interpreted as Wikipedia-text signals rather than ground-truth consumption behavior.
 
 % \begin{acks}
 % Add any acknowledgements here.
@@ -491,6 +511,7 @@ Because several countries are represented by only one or two products, country-l
 \def\bibfont{\small} % comment this line for a smaller fontsize
 \bibliography{sigproc,references} 
 
+\newpage
 \appendix
 \section{Work report}
 In order to find literature, I mainly looked in an online university library.
@@ -501,6 +522,8 @@ One problem I encountered was the Robot Policy of Wikipedia, \url{https://wikite
 I solved this by adding a user-agent to my requests.
 For determining the descriptors from Table \ref{tab:descriptors} in Appendix \ref{app:descriptors}, I asked ChatGPT-5.2 for keywords.
 The exact prompt was: \textit{Hi, can you think of descriptors and keywords that say more about dairy? I would like a set of descriptors about: * the processing and preparation of dairy (e.g., fermented, smoked, fresh) * serving context (e.g., breakfast, bread) * the animal source (e.g., goat, cow, sheep, plant) Give about 5 descriptors per category.}
+
+For choosing validation products, I used a random number generator.
 
 \newpage
 \section{Descriptors} \label{app:descriptors}
@@ -513,7 +536,7 @@ The exact prompt was: \textit{Hi, can you think of descriptors and keywords that
         \label{tab:processing_descriptors}  
         \begin{tabular}{ll}
             \toprule
-            Descriptor & Keywords \\
+            \textbf{Descriptor} & \textbf{Keywords} \\
             \midrule
             Fermented & fermented, fermentation, culture, lactic, \\
             & probiotic, kefir, yogurt, yoghurt \\
@@ -534,7 +557,7 @@ The exact prompt was: \textit{Hi, can you think of descriptors and keywords that
         \label{tab:serving_descriptors}
         \begin{tabular}{ll}
             \toprule
-            Descriptor & Keywords \\
+            \textbf{Descriptor} & \textbf{Keywords} \\
             \midrule
             Breakfast & breakfast, morning, brunch, granola, cereal, oatmeal, \\
             & porridge \\
@@ -557,7 +580,7 @@ The exact prompt was: \textit{Hi, can you think of descriptors and keywords that
         \label{tab:animal_descriptors}
         \begin{tabular}{ll}
             \toprule
-            Descriptor & Keywords \\
+            \textbf{Descriptor} & \textbf{Keywords} \\
             \midrule
             Cow & cow, bovine, jersey, holstein \\
             Goat & goat, caprine, chèvre, chevre \\
@@ -591,7 +614,7 @@ Together with product and country names, this was then put in a choropleth map u
     \label{tab:country2iso3}
     \begin{tabular}{ll}
     \toprule
-    Country & ISO3 \\
+    \textbf{Country} & \textbf{ISO3} \\
     \midrule
     USSR & Russia \\
     Khan garh & Pakistan \\
@@ -610,4 +633,139 @@ Together with product and country names, this was then put in a choropleth map u
     \bottomrule
     \end{tabular}
 \end{table}
+
+% \newpage
+\section{Validation}\label{app:validation}
+See next page.
+
+\begin{table*}[h]
+  \centering
+  \caption{Dairy products and their reported origins.}
+  \label{tab:val_origins}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Product} & \textbf{Origin} & \textbf{Source (clickable)} \\
+    \midrule
+    Cuajada & Spain & \cite{ArquésJ.L.2008AAoN} \\
+    Fromage frais & France, Belgium & \href{https://www.cheese.com/fromage-frais/}{cheese.com} \\
+    Booza & Syria & \href{http://edelweiss-assets.abovethetreeline.com/LP/supplemental/Food%20Lovers%20Middle%20East%20Internals.pdf}{Above the Treeline} \\
+    Mursik & Kenya & \cite{MutaiRancyChepkoech2025Abtf} \\
+    Frozen yogurt & United States & \href{https://www.tastingtable.com/1885038/who-invented-frozen-yogurt/}{tastingtable.com} \\
+    Basundi & India & \cite{ParmarPankajkumarT.2024Eomv} \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[h]
+  \centering
+  \caption{Validation if the processing and preparation descriptor and keyword fits the product.}
+  \label{tab:val_processing}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Product} & \textbf{Descriptor} & \textbf{Keyword(s)} & \textbf{About product?} \\
+    \midrule
+    Haymilk & fermented & fermented & no \\
+    Uunijuusto & cooked & baked & yes \\
+    Kashk, aaruul, chortan, qurut & fermented & culture, fermentation, fermented, probiotic, yogurt & yes \\
+    Kaymak & aged & mature & yes \\
+    Dulce de Leche & fermented & yogurt & no \\
+    Varenets & cooked & baked, heated, pasteurized & yes \\
+    Tzatziki & fresh & fresh & no \\
+    Clotted cream & fermented & culture & no \\
+    Skyr & fermented & culture, fermentation, yogurt & yes \\
+    Kashk, aaruul, chortan, qurut & fresh & fresh & no \\
+    Vla & cooked & baked & no \\
+    Lassi & fermented & yogurt & no \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[h]
+  \centering
+  \caption{Validation if the serving context descriptor and keyword fits the product.}
+  \label{tab:val_serving}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Product} & \textbf{Descriptor} & \textbf{Keyword(s)} & \textbf{About product?} \\
+    \midrule
+    Dondurma & dessert & ice cream & yes \\
+    Kumis & dessert & sweet & no \\
+    Gomme & breakfast & porridge & yes \\
+    Bulgarian yogurt & cooking & sauce & no \\
+    Paneer & dessert & sweet & yes \\
+    Yakult & dessert & sweet & no \\
+    Mursik & dessert & sweet & no \\
+    Ricotta & bread & bread, spread & yes \\
+    Fromage frais & bread & bread, spread & yes \\
+    Smetana & dessert & cake, dessertm, sweet, whipped & yes \\
+    Spaghettieis & dessert & dessert, gelato, ice cream, whipped & yes \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[h]
+  \centering
+  \caption{Validation if the animal source descriptor and keyword fits the product.}
+  \label{tab:val_animal}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Product} & \textbf{Descriptor} & \textbf{Keyword(s)} & \textbf{About product?} \\
+    \midrule
+    Bulgarian yogurt & buffalo & buffalo & yes \\
+    Kaymak & buffalo & buffalo & yes \\
+    Lassi & buffalo & buffalo & no \\
+    Matzoon & buffalo & buffalo & yes \\
+    Kaymak & goat & goat & yes \\
+    Ricotta & plant\_based & oat milk & no \\
+    Yayık ayranı & sheep & sheep & yes \\
+    Kalvdans & cow & cow & yes \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[h]
+  \centering
+  \caption{Validation if the processing and preparation descriptor and fits the product.}
+  \label{tab:val_processing2}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Product} & \textbf{Country} & \textbf{Descriptor} & \textbf{In relations?} \\
+    \midrule
+    Gombe & Norway & cooked & yes \\
+    Haymilk & Switzerland & fresh & yes \\
+    Leben (labneh) & Lebanon & fermented & yes \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[h]
+  \centering
+  \caption{Validation if the serving context descriptor and fits the product.}
+  \label{tab:val_serving2}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Product} & \textbf{Country} & \textbf{Descriptor} & \textbf{In relations?} \\
+    \midrule
+    Soft serve & United States & dessert & yes \\
+    Dadiah & Indonesia & dessert & no \\
+    Crème fraîche & France & cooking & no \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[h]
+  \centering
+  \caption{Validation if the animal source descriptor and fits the product.}
+  \label{tab:val_animal2}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Product} & \textbf{Country} & \textbf{Descriptor} & \textbf{In relations?} \\
+    \midrule
+    Filmjölk & Sweden & cow & no \\
+    Kalvdans & Denmark & cow & yes \\
+    Paneer & India & buffalo & yes \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
 \end{document}
