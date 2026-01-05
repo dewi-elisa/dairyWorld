@@ -210,8 +210,6 @@ __marimo__/
 project_paper/*
 !project_paper
 !project_paper/txmm2526_s1021142_finalproject.pdf
-!project_paper/txmm2526_s1021142_finalproject.tex
-!project_paper/references.bib
 
 *.env
 *.DS_Store
