@@ -36,10 +36,10 @@ def visualize_descriptor(df, products, descriptors, file_name):
     # make barplot and save
     ax = df.plot.bar(color='orange')
     ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
-    ax.set_xlabel("")
-    ax.set_ylabel("%")
-    ax.set_title("")
-    ax.tick_params(axis="x", labelrotation=0)
+    ax.set_xlabel('')
+    ax.set_ylabel('%')
+    ax.set_title('')
+    ax.tick_params(axis='x', labelrotation=0)
 
     plt.tight_layout()
     plt.savefig(file_name)

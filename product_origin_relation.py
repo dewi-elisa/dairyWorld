@@ -3,7 +3,7 @@ import ast
 import plotly.express as px
 import country_converter as coco
 import logging
-logging.getLogger("country_converter.country_converter").setLevel(logging.ERROR)
+logging.getLogger('country_converter.country_converter').setLevel(logging.ERROR)
 
 
 def country2iso3(countries):
@@ -40,19 +40,19 @@ def country2iso3(countries):
 
 def make_world_df(products):
     # explode the dataframe by iso3 codes
-    df = products.explode("iso3").copy()
+    df = products.explode('iso3').copy()
 
     # group by iso3 codes and aggregate dairy products and scores
-    map_df = df.groupby("iso3", as_index=False).agg(
-        dairy_product=("product", lambda s: sorted(set(s))),
-        score=("product", lambda s: s.nunique()),
+    map_df = df.groupby('iso3', as_index=False).agg(
+        dairy_product=('product', lambda s: sorted(set(s))),
+        score=('product', lambda s: s.nunique()),
     )
 
     # format dairy products as semicolon-separated string
-    map_df["dairy_product(s)"] = map_df["dairy_product"].apply(lambda lst: "; ".join(lst))
+    map_df['dairy_product(s)'] = map_df['dairy_product'].apply(lambda lst: '; '.join(lst))
 
     # convert iso3 codes back to country names for hover info
-    map_df["country"] = coco.convert(names=map_df["iso3"].tolist(), to="name_short")
+    map_df['country'] = coco.convert(names=map_df['iso3'].tolist(), to='name_short')
 
     return map_df
 
@@ -73,21 +73,21 @@ if __name__ == '__main__':
     print('Creating world map...')
     fig = px.choropleth(
         map_df,
-        locations="iso3",
-        color="score",
+        locations='iso3',
+        color='score',
         range_color=(1, 7),
         color_continuous_scale=px.colors.sequential.Oranges,
-        hover_name="country",
-        hover_data={"dairy_product(s)": True, "score": False, "iso3": False},
-        projection="natural earth",
-        labels={"score": "Number of products"},
+        hover_name='country',
+        hover_data={'dairy_product(s)': True, 'score': False, 'iso3': False},
+        projection='natural earth',
+        labels={'score': 'Number of products'},
     )
 
     fig.update_layout(
-        title=f"Dairy products by country",
+        title=f'Dairy products by country',
         margin=dict(l=10, r=10, t=50, b=10),
     )
     fig.show()
-    fig.write_html("results/world_map.html")
-    print("Saved to results/world_map.html")
+    fig.write_html('results/world_map.html')
+    print('Saved to results/world_map.html')
     print('Done!')

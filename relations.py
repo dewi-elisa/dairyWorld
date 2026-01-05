@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-USER_AGENT = os.getenv("WIKIMEDIA_USER_AGENT")
+USER_AGENT = os.getenv('WIKIMEDIA_USER_AGENT')
 if not USER_AGENT:
     raise RuntimeError('No USER_AGENT set in environment variables!')
 
@@ -14,7 +14,7 @@ SESSION = requests.Session()
 SESSION.headers.update(
     {
         'User-Agent': USER_AGENT,
-        "Accept-Language": "en"
+        'Accept-Language': 'en'
     }
 )
 

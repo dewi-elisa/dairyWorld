@@ -7,7 +7,7 @@ import re
 from dotenv import load_dotenv
 load_dotenv()
 
-USER_AGENT = os.getenv("WIKIMEDIA_USER_AGENT")
+USER_AGENT = os.getenv('WIKIMEDIA_USER_AGENT')
 if not USER_AGENT:
     raise RuntimeError('No USER_AGENT set in environment variables!')
 
@@ -15,7 +15,7 @@ SESSION = requests.Session()
 SESSION.headers.update(
     {
         'User-Agent': USER_AGENT,
-        "Accept-Language": "en"
+        'Accept-Language': 'en'
     }
 )
 
@@ -32,18 +32,18 @@ def find_descriptors(product_name, productURL, descriptors):
     for paragraph in soup.find_all('p'):
         # make text lower case and remove citations
         paragraph = paragraph.text.lower()
-        paragraph = re.sub(r"\[[^\]]*\]", "", paragraph)
+        paragraph = re.sub(r'\[[^\]]*\]', '', paragraph)
         for sentence in paragraph.split('. '):  # split into sentences
             for descriptor_type, descriptor_list in descriptors.items():
                 for descriptor in descriptor_list:
                     if descriptor in sentence:
                         df.loc[len(df)] = [product_name, descriptor_type, descriptor, sentence]
 
-    return df.groupby(["product", "descriptor_type"],
+    return df.groupby(['product', 'descriptor_type'],
                       as_index=False).agg(
-                          descriptors=("descriptor", lambda x: sorted(set(x))),
-                          sentences=("sentence", lambda x: list(set(x))),
-                          n_keyword_hits=("descriptor", "size"))
+                          descriptors=('descriptor', lambda x: sorted(set(x))),
+                          sentences=('sentence', lambda x: list(set(x))),
+                          n_keyword_hits=('descriptor', 'size'))
 
 
 if __name__ == '__main__':
@@ -55,33 +55,33 @@ if __name__ == '__main__':
 
     # processing and preparation descriptors
     processing_descriptors = {
-        "fermented": ["fermented", "fermentation", "culture", "lactic", "probiotic", "kefir", "yogurt", "yoghurt"],
-        "aged": ["aged", "ripened", "ripening", "mature", "affinage"],
-        "fresh": ["fresh", "unripened"],
-        "smoked": ["smoked", "smoky"],
-        "cooked": ["cooked", "baked", "heated", "melted", "pasteurized", "pasteurised"]
+        'fermented': ['fermented', 'fermentation', 'culture', 'lactic', 'probiotic', 'kefir', 'yogurt', 'yoghurt'],
+        'aged': ['aged', 'ripened', 'ripening', 'mature', 'affinage'],
+        'fresh': ['fresh', 'unripened'],
+        'smoked': ['smoked', 'smoky'],
+        'cooked': ['cooked', 'baked', 'heated', 'melted', 'pasteurized', 'pasteurised']
     }
 
     # serving context descriptors
     serving_descriptors = {
-        "breakfast": ["breakfast", "morning", "brunch", "granola", "cereal", "oatmeal", "porridge"],
-        "bread": ["bread", "toast", "sandwich", "spread", "schmear", "bagel", "cracker", "crostini", "canape",
-                  "canapés"],
-        "dessert": ["dessert", "sweet", "cake", "pastry", "pastries", "pudding", "custard", "ice cream", "gelato",
-                    "whipped", "frosting"],
-        "cooking": ["cooking", "sauce", "pasta", "casserole", "gratin"],
-        "snack": ["snack", "appetizer", "appetiser", "cheese board", "charcuterie", "platter", "tapas"]
+        'breakfast': ['breakfast', 'morning', 'brunch', 'granola', 'cereal', 'oatmeal', 'porridge'],
+        'bread': ['bread', 'toast', 'sandwich', 'spread', 'schmear', 'bagel', 'cracker', 'crostini', 'canape',
+                  'canapés'],
+        'dessert': ['dessert', 'sweet', 'cake', 'pastry', 'pastries', 'pudding', 'custard', 'ice cream', 'gelato',
+                    'whipped', 'frosting'],
+        'cooking': ['cooking', 'sauce', 'pasta', 'casserole', 'gratin'],
+        'snack': ['snack', 'appetizer', 'appetiser', 'cheese board', 'charcuterie', 'platter', 'tapas']
     }
 
     # animal source descriptors
     animal_descriptors = {
-        "cow": ["cow", "bovine", "jersey", "holstein"],
-        "goat": ["goat", "caprine", "chèvre", "chevre"],
-        "sheep": ["sheep", "ewe", "ovine"],
-        "buffalo": ["buffalo", "bufala"],
-        "plant_based": ["plant-based", "plant based", "vegan", "non-dairy", "non dairy", "dairy-free", "dairy free",
-                        "oat milk", "soy milk", "soya milk", "almond milk", "coconut milk", "cashew milk", "rice milk",
-                        "pea milk"]
+        'cow': ['cow', 'bovine', 'jersey', 'holstein'],
+        'goat': ['goat', 'caprine', 'chèvre', 'chevre'],
+        'sheep': ['sheep', 'ewe', 'ovine'],
+        'buffalo': ['buffalo', 'bufala'],
+        'plant_based': ['plant-based', 'plant based', 'vegan', 'non-dairy', 'non dairy', 'dairy-free', 'dairy free',
+                        'oat milk', 'soy milk', 'soya milk', 'almond milk', 'coconut milk', 'cashew milk', 'rice milk',
+                        'pea milk']
     }
 
     # extract descriptors

@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-USER_AGENT = os.getenv("WIKIMEDIA_USER_AGENT")
+USER_AGENT = os.getenv('WIKIMEDIA_USER_AGENT')
 if not USER_AGENT:
     raise RuntimeError('No USER_AGENT set in environment variables!')
 
@@ -13,7 +13,7 @@ SESSION = requests.Session()
 SESSION.headers.update(
     {
         'User-Agent': USER_AGENT,
-        "Accept-Language": "en"
+        'Accept-Language': 'en'
     }
 )
 
@@ -28,7 +28,7 @@ def get_website(url, file_name):
 def check_URL(URL):
     if URL[:6] != '/wiki/':
         return None
-    return "https://en.wikipedia.org" + URL
+    return 'https://en.wikipedia.org' + URL
 
 
 def clean_product(details):
@@ -38,7 +38,7 @@ def clean_product(details):
     product, _, country, description = details
 
     # clean description
-    description = description.get_text(" ", strip=True)
+    description = description.get_text(' ', strip=True)
 
     # extract product name and URL
     product = product.find('a')
@@ -58,7 +58,7 @@ def clean_product(details):
     countries = country.find_all('a')
 
     if countries == []:  # if the product does not have a country
-        print(f"    {product_name}'s country has no URLs")
+        print(f'    {product_name}\'s country has no URLs')
         return None
 
     country_name = []
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     if not os.path.isfile(file_name):
         print('Extracting the website...')
-        URL = "https://en.wikipedia.org/wiki/List_of_dairy_products"
+        URL = 'https://en.wikipedia.org/wiki/List_of_dairy_products'
         get_website(URL, file_name)
 
     print('Found the website!')
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     for table in tables:
         for row in table.find_all('tr'):
             # return the product if it is not a header and it has all elements
-            if row.find("th") is not None:  # header
+            if row.find('th') is not None:  # header
                 continue
 
             details = row.find_all('td')
