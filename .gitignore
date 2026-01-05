@@ -208,8 +208,6 @@ __marimo__/
 
 # LaTeX
 project_paper/*
-!project_paper
-!project_paper/txmm2526_s1021142_finalproject.pdf
 
 *.env
 *.DS_Store
